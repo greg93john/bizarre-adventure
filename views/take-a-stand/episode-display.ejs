@@ -1,0 +1,64 @@
+<%- include("header-navbar-top-of-body.ejs") -%>
+        <div class="sticky-top episode-title-label">
+          <div class="jumbotron jumbotron-fluid border-bottom rounded-top mb-0 py-4">
+            <h1 class="episode-title text-center m-0">Episode <%= episodeDoc.episodeNumber %></h1>
+          </div>
+
+        </div>
+        <div class="jumbotron rounded-0">
+          <div class="text-center mb-5">
+            <img class="w-100 rounded" src="https://drive.google.com/uc?export=view&id=<%=episodeDoc.episodeThumbnailId%>" alt="episode thumbnail">
+            <hr>
+          </div>
+            <div class="text-center">
+              <div class="container-fluid">
+                <h4 class="episode-game-date">Date: <%= episodeDoc.inGameDate %></h4>
+                <h5 class="episode-air-date">(Aired on: <%= episodeDoc.realLifeDate %>)</h5>
+              </div>
+
+              <div class="container-fluid pt-3 pb-2 text-break">
+                <h6> Question of the Episode:<span class="episode-question"> <%= episodeDoc.episodeQuestion %></span></h6>
+              </div>
+
+              <div class="container-fluid">
+                  <div class="row justify-content-center text-break">
+                    <div class="col-3">
+                      <h6><%= episodeDoc.episodeAnswers[0].character %></h6>
+                      <p><%= episodeDoc.episodeAnswers[0].answer %></p>
+                    </div>
+                    <div class="col-3">
+                      <h6><%= episodeDoc.episodeAnswers[1].character %></h6>
+                      <p> <%= episodeDoc.episodeAnswers[1].answer %> </p>
+                    </div>
+                    <div class="col-3">
+                      <h6><%= episodeDoc.episodeAnswers[2].character %></h6>
+                      <p><%= episodeDoc.episodeAnswers[2].answer %></p>
+                    </div>
+                    <div class="col-3">
+                      <h6><%= episodeDoc.episodeAnswers[3].character %></h6>
+                      <p><%= episodeDoc.episodeAnswers[3].answer %></p>
+                    </div>
+                  </div>
+              </div>
+            </div>
+
+          <hr class="my-6">
+
+          <p class="lead episode-description">
+            <%= episodeDoc.episodeDescription %>
+          </p>
+
+          <hr class="my-6">
+
+          <div class="container-fluid text-center py-3">
+            <h3>Stand Out Moments:</h3>
+          </div>
+
+          <ul class="list-group text episode-stand-out-moments">
+            <% episodeDoc.standOutMoments.forEach(function(moment){ %>
+              <li class="list-group-item"><%=moment%></li>
+            <% }) %>
+          </ul>
+
+        </div>
+<%- include("bottom-body-and-footer") -%>

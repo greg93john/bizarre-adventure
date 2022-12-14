@@ -1,0 +1,68 @@
+<%- include("header-navbar-top-of-body.ejs") -%>
+<div class="jumbotron text-center clearfix">
+  <section class="container-fluid">
+    <div class="text-left">
+      <h1>Home</h1>
+    </div>
+    <hr>
+    <div class="w-75 mx-auto">
+      <div class="d-flex justify-content-center mb-3">
+        <div id="carouselControls" class="carousel slide rounded border border-dark w-100 home-page-carousel" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="embed-responsive embed-responsive-16by9">
+                <img class="embed-responsive-item mx-auto carousel-1st-image" alt="First Slide">
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="embed-responsive embed-responsive-16by9">
+                <img class="embed-responsive-item mx-auto carousel-2nd-image" alt="Second Slide">
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="embed-responsive embed-responsive-16by9">
+                <img class="embed-responsive-item mx-auto carousel-3rd-image" alt="Third Slide">
+              </div>
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="d-flex border border-dark mb-3">
+        <div class="my-auto mx-auto">
+            <p class="text-center chapter-description">
+              Bizzare Adventure: Stand Against is a Tabletop game, played in the "Savage Worlds" system. <br> It follows the journey of a small club within Piece City.
+              This is a fan-made wiki site, relating to this series.
+            </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <a href="/stand-against/chapters">
+            <div class="embed-responsive embed-responsive-1by1">
+              <img class="embed-responsive-item rounded chapter-icon" alt="Chapter Menu Image">
+            </div>
+            <p>Chapters</p>
+          </a>
+        </div>
+        <div class="col-6">
+          <a href="/stand-against/characters">
+            <div class="embed-responsive embed-responsive-1by1">
+              <img class="embed-responsive-item rounded character-icon" alt="Character Menu Image">
+            </div>
+            <p>Characters</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<%- include("bottom-body-and-footer") -%>

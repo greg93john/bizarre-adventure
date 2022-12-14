@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Bizzare Adventure Wiki Site">
+  <meta name="author" content="Greg Johnson">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/sa-styles.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Asap&family=Bungee+Inline&display=swap" rel="stylesheet">
+
+  <link rel="icon" href="\images\sa-favicon.ico">
+
+  <title>Bizzare Adventure: Stand Against <%= pageSubtitle %></title>
+</head>
+
+<body>
+  <div class="page-container">
+
+    <div class="content-wrap">
+
+      <nav class="navbar navbar-expand-lg navbar-dark fixed-top stand-against-bg-color">
+
+        <a class="navbar-brand brand-font" href="/stand-against">Stand Against</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+        <div class="collapse navbar-collapse text-light" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <!-- Chapter List Button -->
+            <li class="nav-item">
+              <div class="btn-group">
+                <a href="/stand-against/chapters" class="btn text-light">Chapters</a>
+                <a class="btn dropdown-toggle dropdown-toggle-split px-lg-0 mr-lg-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="sr-only">Toggle Dropdown</span>
+                </a>
+                <div class="dropdown-menu">
+                  <% for(let i = 0; i < chapterAmount; i++) { %>
+                    <a class="dropdown-item text-center" href="/stand-against/chapters/<%=i+1%>"><%=i+1%></a>
+                      <%if(i != chapterAmount-1) {%>
+                      <div class="dropdown-divider"></div>
+                      <%}%>
+                  <% }%>
+                </div>
+              </div>
+            </li>
+
+
+            <li class="nav-item">
+              <div class="btn-group">
+                <a href="/stand-against/characters" class="btn text-light">Characters</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <main role="main" class="container-fluid">
+
+        <div class="row">
+          <div class="col-lg-2 d-none d-lg-flex h-100 align-items-center justify-content-center position-fixed">
+            <img class="img-fluid w-75 stand-against-logo">
+          </div>
+
+          <div class="col-xs-12 col-lg-8 offset-lg-2">

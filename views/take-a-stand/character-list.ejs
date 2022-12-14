@@ -1,0 +1,35 @@
+<%- include("header-navbar-top-of-body.ejs") -%>
+<div class="jumbotron text-center container-fluid clearfix">
+  <div class="py-3">
+    <div class="container-fluid">
+      <div class="pb-5">
+        <h2><u>JoJo's Bizzare Adventure: Take A Stand</u></h2>
+        <h3>Characters</h3>
+      </div>
+        <%var currentStartingLetter = "";
+          characterList.forEach(function(character) {
+            if(currentStartingLetter === "") {%>
+              <div class="text-left">
+                <h4><%=character.name.charAt(0)%></h4>
+                <hr>
+              </div>
+              <div class="row mb-5">
+          <%currentStartingLetter=character.name.charAt(0);
+            }
+            else if(currentStartingLetter !== character.name.charAt(0)) {%>
+            </div>
+            <div class="text-left">
+              <h4><%=character.name.charAt(0)%></h4>
+              <hr>
+            </div>
+            <div class="row mb-5">
+          <%currentStartingLetter=character.name.charAt(0);}%>
+        <div class="col-12 mb-2 text-left">
+          <a href="./characters/<%=character.name%>"><%=character.name%></a>
+        </div>
+        <%})%>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include("bottom-body-and-footer.ejs") -%>

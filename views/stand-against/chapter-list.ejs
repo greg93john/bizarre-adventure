@@ -1,0 +1,48 @@
+<%- include("header-navbar-top-of-body.ejs") -%>
+<div class="jumbotron text-center container-fluid clearfix h-100">
+  <div class="py-3">
+    <div class="container-fluid">
+      <div class="pb-5">
+        <h2><u>JoJo's Bizzare Adventure: Stand Against</u></h2>
+        <h3>Chapters</h3>
+      </div>
+
+        <%var currentStoryArc = "";
+          chapterList.forEach(function(chapter) {
+            if(currentStoryArc === "") {%>
+              <div class="text-left">
+                <h4><%=chapter.storyArc%></h4>
+                <hr>
+              </div>
+              <div class="row mb-5">
+          <%currentStoryArc=chapter.storyArc;
+            }
+            else if(currentStoryArc !== chapter.storyArc) {%>
+            </div>
+            <div class="text-left">
+              <h4><%=chapter.storyArc%></h4>
+              <hr>
+            </div>
+            <div class="row mb-5">
+          <%currentStoryArc=chapter.storyArc;
+            }%>
+        <div class="offset-1 offset-lg-0 col-10 col-lg-4 mb-3">
+          <div class="card h-100 border border-dark">
+            <%if(chapter.chapterThumbnailId) {%>
+            <a href="./chapters/<%=chapter.chapterNumber%>"><img class="card-img-top" src="https://drive.google.com/uc?export=view&id=<%=chapter.chapterThumbnailId%>" alt="chapter thumbnail"></a>
+            <%}%>
+            <div class="card-body">
+              <a class="card-title" href="./chapters/<%=chapter.chapterNumber%>"><h5>Chapter: <%= chapter.chapterNumber %></h5></a>
+              <hr class="mb-0">
+              <p class="card-text text-left chapter-description">
+                <%-((chapter.chapterDescription.indexOf('.') > 25) ? (chapter.chapterDescription.substring(0, chapter.chapterDescription.indexOf('.'))) : (chapter.chapterDescription.substring(0, chapter.chapterDescription.indexOf('.', chapter.chapterDescription.indexOf('.') + 1)))) + "..."%>
+              </p>
+            </div>
+          </div>
+        </div>
+        <%})%>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include("bottom-body-and-footer") -%>

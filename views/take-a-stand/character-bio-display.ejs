@@ -1,0 +1,132 @@
+<%- include("header-navbar-top-of-body.ejs") -%>
+      <div class="jumbotron text-center container-fluid clearfix">
+        <section class="mb-4">
+          <h1 class="text-left"><%= characterDoc.name %></h1>
+          <hr class="overflow-hidden">
+
+            <div class="float-lg-right px-4 pb-1">
+              <aside>
+                <iframe src="<%= characterDoc.imageUrl %>" width="250" height="450"></iframe>
+                <ul class="list-group border border-dark rounded">
+                  <%for (var j = 0; j < 10; j++) {%>
+                    <li class="list-group-item py-1">
+                      <div class="row text-left">
+                        <div class="col-4 take-a-stand-bg-color rounded-left">
+                          <p class="my-0 profile-label-text">
+                            <%switch (j) {
+                                case 0:%>
+                                Age
+                                <%break;
+                                case 1:%>
+                                Birthday
+                                <%break;
+                                case 2:%>
+                                Blood Type
+                                <%break;
+                                case 3:%>
+                                Eye Color
+                                <%break;
+                                case 4:%>
+                                Gender
+                                <%break;
+                                case 5:%>
+                                Hair Color
+                                <%break;
+                                case 6:%>
+                                Height
+                                <%break;
+                                case 7:%>
+                                Nationality
+                                <%break;
+                                case 8:%>
+                                Occupation
+                                <%break;
+                                case 9:%>
+                                Weight
+                                <%break;
+                                case 10:%>
+                                Played By
+                                <%break;
+                                default:%>
+                                  ?
+                                <%break; }%>
+                          </p>
+                        </div>
+                        <div class="col ml-1 bg-profile-value rounded-right">
+                          <p class="my-0">
+                            <%switch (j) {
+                                case 0:%>
+                                <%=characterDoc.profile.age%>
+                                <%break;
+                                case 1:%>
+                                <%=characterDoc.profile.birthday%>
+                                <%break;
+                                case 2:%>
+                                <%=characterDoc.profile.bloodType%>
+                                <%break;
+                                case 3:%>
+                                <%=characterDoc.profile.eyeColor%>
+                                <%break;
+                                case 4:%>
+                                <%=characterDoc.profile.gender%>
+                                <%break;
+                                case 5:%>
+                                <%=characterDoc.profile.hairColor%>
+                                <%break;
+                                case 6:%>
+                                <%=characterDoc.profile.height%>
+                                <%break;
+                                case 7:%>
+                                <%=characterDoc.profile.nationality%>
+                                <%break;
+                                case 8:%>
+                                <%=characterDoc.profile.occupation%>
+                                <%break;
+                                case 9:%>
+                                <%=characterDoc.profile.weight%>
+                                <%break;
+                                case 10:%>
+                                <%=characterDoc.player%>
+                                <%break;
+                                default:%>
+                                  ?
+                                <%break; }%>
+                          </p>
+                        </div>
+                      </div>
+                    </li>
+                  <%}%>
+                </ul>
+              </aside>
+            </div>
+
+            <div class="text-left">
+              <p class="description-text"><%-characterDoc.pageDescription.backStory? characterDoc.pageDescription.backStory.replace(/(?:\r\n|\r|\n)/g, '<br />') : null%></p>
+            </div>
+        </section>
+
+        <section class="mb-4">
+          <h2 class="text-left">Appearance</h2>
+          <hr class="overflow-hidden">
+          <div class="text-left">
+            <p class="description-text"><%-characterDoc.pageDescription.appearance? characterDoc.pageDescription.appearance.replace(/(?:\r\n|\r|\n)/g, '<br />' ) : null%></p>
+          </div>
+        </section>
+
+        <section class="mb-4">
+          <h2 class="text-left">Personality</h2>
+          <hr class="overflow-hidden">
+          <div class="text-left">
+            <p class="description-text"><%-characterDoc.pageDescription.personality? characterDoc.pageDescription.personality.replace(/(?:\r\n|\r|\n)/g, '<br />') : null%></p>
+          </div>
+        </section>
+
+        <section class="mb-4">
+          <h2 class="text-left">Abilities</h2>
+          <hr class="overflow-hidden">
+          <div class="text-left">
+            <p class="description-text"><%-characterDoc.pageDescription.abilities? characterDoc.pageDescription.abilities.replace(/(?:\r\n|\r|\n)/g, '<br />') : null%></p>
+          </div>
+        </section>
+      </div>
+<%- include("bottom-body-and-footer") -%>

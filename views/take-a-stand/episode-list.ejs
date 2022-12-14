@@ -1,0 +1,48 @@
+<%- include("header-navbar-top-of-body.ejs") -%>
+<div class="jumbotron text-center container-fluid clearfix h-100">
+  <div class="py-3">
+    <div class="container-fluid">
+      <div class="pb-5">
+        <h2><u>JoJo's Bizzare Adventure: Take A Stand</u></h2>
+        <h3>Episodes</h3>
+      </div>
+
+        <%var currentStoryArc = "";
+          episodeList.forEach(function(episode) {
+            if(currentStoryArc === "") {%>
+              <div class="text-left">
+                <h4><%=episode.storyArc%></h4>
+                <hr>
+              </div>
+              <div class="row mb-5">
+          <%currentStoryArc=episode.storyArc;
+            }
+            else if(currentStoryArc !== episode.storyArc) {%>
+            </div>
+            <div class="text-left">
+              <h4><%=episode.storyArc%></h4>
+              <hr>
+            </div>
+            <div class="row mb-5">
+          <%currentStoryArc=episode.storyArc;
+            }%>
+        <div class="offset-1 offset-lg-0 col-10 col-lg-4 mb-3">
+          <div class="card h-100 border border-dark">
+            <%if(episode.episodeThumbnailId) {%>
+            <a href="./episodes/<%=episode.episodeNumber%>"><img class="card-img-top" src="https://drive.google.com/uc?export=view&id=<%=episode.episodeThumbnailId%>" alt="episode thumbnail"></a>
+            <%}%>
+            <div class="card-body">
+              <a class="card-title" href="./episodes/<%=episode.episodeNumber%>"><h5>Episode: <%= episode.episodeNumber %></h5></a>
+              <hr class="mb-0">
+              <p class="card-text text-left episode-description">
+                <%-((episode.episodeDescription.indexOf('.') > 20) ? (episode.episodeDescription.substring(0, episode.episodeDescription.indexOf('.'))) : (episode.episodeDescription.substring(0, episode.episodeDescription.indexOf('.', episode.episodeDescription.indexOf('.') + 1)))) + "..."%>
+              </p>
+            </div>
+          </div>
+        </div>
+        <%})%>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include("bottom-body-and-footer") -%>

@@ -1,0 +1,35 @@
+<%- include("header-navbar-top-of-body.ejs") -%>
+<div class="jumbotron text-center container-fluid clearfix">
+  <div class="py-3">
+    <div class="container-fluid">
+      <div class="pb-5">
+        <h2><u>JoJo's Bizzare Adventure: Stand Against</u></h2>
+        <h3>Characters</h3>
+      </div>
+        <%var currentStartingLetter = "";
+          roleList.forEach(function(role) {
+            if(currentStartingLetter === "") {%>
+              <div class="text-left">
+                <h4><%=role.name.charAt(0)%></h4>
+                <hr>
+              </div>
+              <div class="row mb-5">
+          <%currentStartingLetter=role.name.charAt(0);
+            }
+            else if(currentStartingLetter !== role.name.charAt(0)) {%>
+            </div>
+            <div class="text-left">
+              <h4><%=role.name.charAt(0)%></h4>
+              <hr>
+            </div>
+            <div class="row mb-5">
+          <%currentStartingLetter=role.name.charAt(0);}%>
+        <div class="col-12 mb-2 text-left">
+          <a href="./characters/<%=role.name%>"><%=role.name%></a>
+        </div>
+        <%})%>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include("bottom-body-and-footer.ejs") -%>

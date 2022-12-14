@@ -1,0 +1,64 @@
+<%- include("header-navbar-top-of-body.ejs") -%>
+        <div class="sticky-top chapter-title-label">
+          <div class="jumbotron jumbotron-fluid border-bottom rounded-top mb-0 py-4">
+            <h1 class="chapter-title text-center m-0">Chapter <%= chapterDoc.chapterNumber %></h1>
+          </div>
+
+        </div>
+        <div class="jumbotron rounded-0">
+          <div class="text-center mb-5">
+            <img class="w-100 rounded" src="https://drive.google.com/uc?export=view&id=<%=chapterDoc.chapterThumbnailId%>" alt="chapter thumbnail">
+            <hr>
+          </div>
+            <div class="text-center">
+              <div class="container-fluid">
+                <h4 class="chapter-game-date">Date: <%= chapterDoc.inGameDate %></h4>
+                <h5 class="chapter-air-date">(Aired on: <%= chapterDoc.realLifeDate %>)</h5>
+              </div>
+
+              <div class="container-fluid pt-3 pb-2 text-break">
+                <h6>Question of the Chapter:<span class="chapter-question"> <%= chapterDoc.chapterQuestion %></span></h6>
+              </div>
+
+              <div class="container-fluid">
+                  <div class="row justify-content-center text-break">
+                    <div class="col-3">
+                      <h6><%= chapterDoc.chapterAnswers[0].character %></h6>
+                      <p><%= chapterDoc.chapterAnswers[0].answer %></p>
+                    </div>
+                    <div class="col-3">
+                      <h6><%= chapterDoc.chapterAnswers[1].character %></h6>
+                      <p> <%= chapterDoc.chapterAnswers[1].answer %> </p>
+                    </div>
+                    <div class="col-3">
+                      <h6><%= chapterDoc.chapterAnswers[2].character %></h6>
+                      <p><%= chapterDoc.chapterAnswers[2].answer %></p>
+                    </div>
+                    <div class="col-3">
+                      <h6><%= chapterDoc.chapterAnswers[3].character %></h6>
+                      <p><%= chapterDoc.chapterAnswers[3].answer %></p>
+                    </div>
+                  </div>
+              </div>
+            </div>
+
+          <hr class="my-6">
+
+          <p class="lead chapter-description">
+            <%= chapterDoc.chapterDescription %>
+          </p>
+
+          <hr class="my-6">
+
+          <div class="container-fluid text-center py-3">
+            <h3>Stand Out Moments:</h3>
+          </div>
+
+          <ul class="list-group text chapter-stand-out-moments">
+            <% chapterDoc.standOutMoments.forEach(function(moment){ %>
+              <li class="list-group-item"><%=moment%></li>
+            <% }) %>
+          </ul>
+
+        </div>
+<%- include("bottom-body-and-footer") -%>

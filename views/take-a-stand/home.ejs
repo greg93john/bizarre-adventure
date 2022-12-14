@@ -1,0 +1,66 @@
+<%- include("header-navbar-top-of-body.ejs") -%>
+<div class="jumbotron text-center clearfix">
+  <section class="container-fluid">
+    <div class="text-left">
+      <h1>Home</h1>
+    </div>
+    <hr>
+    <div class="w-75 mx-auto">
+      <div class="d-flex justify-content-center mb-3">
+        <div id="carouselControls" class="carousel slide rounded border border-dark w-100 home-page-carousel" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="embed-responsive embed-responsive-16by9">
+                <img class="embed-responsive-item mx-auto" src="https://www.whats-on-netflix.com/wp-content/uploads/2019/03/JoJos-Bizarre-Adventure-Netflix.jpg" alt="First Slide">
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="embed-responsive embed-responsive-16by9">
+                <img class="embed-responsive-item mx-auto" src="https://wegotthiscovered.com/wp-content/uploads/2021/08/Jojo-Bizzare-640x321.jpeg" alt="Second Slide">
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="embed-responsive embed-responsive-16by9">
+                <img class="embed-responsive-item mx-auto" src="https://gamerbraves.sgp1.cdn.digitaloceanspaces.com/2020/12/JojoWorld_FI.jpg" alt="Third Slide">
+              </div>
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="d-flex border border-dark mb-3">
+        <div class="my-auto mx-auto">
+            <p class="text-center episode-description">JoJo's Bizarre Adventure, often shortened to JoJo or JJBA, is a tabletop campaign played in FATE. <br> It follows the journeys of a band of highschool students in an Anti-bully club.
+              The goal is to create a reference for material related to this series.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <a href="/take-a-stand/episodes">
+            <div class="embed-responsive embed-responsive-1by1">
+              <img class="embed-responsive-item rounded" src="https://i.pinimg.com/736x/52/4e/34/524e3417c37882cd8a5208175e64047f.jpg" alt="Episode Menu Image">
+            </div>
+            <p>Episodes</p>
+          </a>
+        </div>
+        <div class="col-6">
+          <a href="/take-a-stand/characters">
+            <div class="embed-responsive embed-responsive-1by1">
+              <img class="embed-responsive-item rounded" src="https://pm1.narvii.com/6539/2af5d814ffd06101c415d49124e62752b1d440c8_00.jpg" alt="Character Menu Image">
+            </div>
+            <p>Characters</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<%- include("bottom-body-and-footer") -%>
