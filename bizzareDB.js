@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import dotenv from 'dotenv';
 dotenv.config();
 
-const clusterLink = "mongodb+srv://" + process.env.MONGO_USER + ":" + process.env.MONGO_PASSWORD + "@bizzarecluster.qhmqx.mongodb.net/bizzareAdventureDB?retryWrites=true&w=majority";
+const clusterLink = "mongodb+srv://" + "blackGate" + ":" + "theBlackGate" + "@bizzarecluster.qhmqx.mongodb.net/bizzareAdventureDB?retryWrites=true&w=majority";
 mongoose.connect(clusterLink, {
   useNewUrlParser: true,
   useUnifiedTopology: true
