@@ -38,11 +38,6 @@ footer {
   padding-bottom: 2.5rem;    /* Footer height */
 }
 
-.dropdown-menu {
-  max-height: 250px;
-  overflow-y: auto;
-}
-
 .chapter-description {
   text-align: left;
   white-space: pre-line;
@@ -51,6 +46,16 @@ footer {
 
 .chapter-icon {
   content: url('/images/Stand_Against_Icon.png');
+}
+
+.dropdown-menu {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.gate-navbar-image {
+  height: 1.5rem;
+  width: 1.5rem;
 }
 
 .page-container {

@@ -52,6 +52,11 @@ footer {
   white-space: pre-line;
 }
 
+.gate-navbar-image {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
 .home-page-carousel img {
   height: 25rem;
 }
