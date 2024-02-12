@@ -29,7 +29,7 @@
         <div class="offset-1 offset-lg-0 col-10 col-lg-4 mb-3">
           <div class="card h-100 border border-dark">
             <%if(episode.episodeThumbnailId) {%>
-            <a href="./episodes/<%=episode.episodeNumber%>"><img class="card-img-top" src="https://drive.google.com/uc?export=view&id=<%=episode.episodeThumbnailId%>" alt="episode thumbnail"></a>
+            <a href="./episodes/<%=episode.episodeNumber%>"><img class="card-img-top" src="/images/<%=episode.storyArc%>.png" alt="episode thumbnail"></a>
             <%}%>
             <div class="card-body">
               <a class="card-title" href="./episodes/<%=episode.episodeNumber%>"><h5>Episode: <%= episode.episodeNumber %></h5></a>

@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 import ejs from "ejs";
 import mongoose from "mongoose";
 import _ from "lodash";
-import {Episode, Character, Chapter, Role} from "./bizzareDB.js";
+import { Episode, Character, Chapter, Role } from "./bizzareDB.js";
 import path from "path";
 
 const app = express();
@@ -22,25 +22,25 @@ countHowManyEpisodes();
 countHowManyChapters();
 
 app.route("/")
-.get(function(req,res) {
+  .get(function (req, res) {
     res.render("TheGate/home.ejs");
-});
+  });
 
 app.route("/take-a-stand")
-.get(function(req, res) {
-  res.render("take-a-stand/home.ejs",{
-    pageSubtitle: "",
-    episodeAmount: episodeAmount
+  .get(function (req, res) {
+    res.render("take-a-stand/home.ejs", {
+      pageSubtitle: "",
+      episodeAmount: episodeAmount
+    });
   });
-});
 
 app.route("/stand-against")
-.get(function(req, res) {
-  res.render("stand-against/home.ejs",{
-    pageSubtitle: "",
-    chapterAmount: chapterAmount
+  .get(function (req, res) {
+    res.render("stand-against/home.ejs", {
+      pageSubtitle: "",
+      chapterAmount: chapterAmount
+    });
   });
-});
 
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Take A Stand routes ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -51,9 +51,15 @@ app.route("/stand-against")
 /************************************************************************************************************************/
 app.route("/take-a-stand/episodes")
   // GET all episodes in database
-  .get(function(req, res) {
-    Episode.find({}, function(err, foundEpisodes) {
+  .get(function (req, res) {
+    Episode.find({}, function (err, foundEpisodes) {
       if (!err) {
+        res.cookie('bizarre-adventure-cookie', 'bizarre', {
+          maxAge: 7 * 24 * 60 * 60 * 1000, // Expires in 7 days
+          httpOnly: false,
+          sameSite: 'None', // Setting SameSite attribute
+          secure: true
+        });
         res.render("take-a-stand/episode-list.ejs", {
           episodeList: foundEpisodes,
           pageSubtitle: "| Episodes",
@@ -62,14 +68,14 @@ app.route("/take-a-stand/episodes")
       } else {
         res.send(err);
       }
-    }).sort({episodeNumber:1})
+    }).sort({ episodeNumber: 1 })
   })
   // POST (create) a new episode in database
-  .post(function(req, res) {
+  .post(function (req, res) {
     Episode.findOne({
-        episodeNumber: req.body.episodeNumber
-      },
-      function(err, foundEpisode) {
+      episodeNumber: req.body.episodeNumber
+    },
+      function (err, foundEpisode) {
         if (!foundEpisode) {
           const newEpisode = new Episode({
             episodeNumber: req.body.episodeNumber,
@@ -84,7 +90,7 @@ app.route("/take-a-stand/episodes")
             storyArc: req.body.storyArc
           });
 
-          newEpisode.save(function(err) {
+          newEpisode.save(function (err) {
             if (!err) {
               countHowManyEpisodes();
               res.send("Successfully added new episode!");
@@ -114,10 +120,10 @@ app.route("/take-a-stand/episodes")
 /*******************************************************************************************************************************/
 app.route("/take-a-stand/episodes/:episodeNumber")
   // reads the specified episode in the database
-  .get(function(req, res) {
+  .get(function (req, res) {
     Episode.findOne({
       episodeNumber: req.params.episodeNumber
-    }, function(err, foundEpisode) {
+    }, function (err, foundEpisode) {
       if (!err) {
         if (foundEpisode) {
           res.render("take-a-stand/episode-display.ejs", {
@@ -134,13 +140,13 @@ app.route("/take-a-stand/episodes/:episodeNumber")
     })
   })
   // updates (through 'patch' method) the specified episode in the database
-  .patch(function(req, res) {
+  .patch(function (req, res) {
     Episode.updateOne({
-        episodeNumber: req.params.episodeNumber
-      }, {
-        $set: req.body
-      },
-      function(err) {
+      episodeNumber: req.params.episodeNumber
+    }, {
+      $set: req.body
+    },
+      function (err) {
         if (!err) {
           res.send("Successfully updated episode.");
         } else {
@@ -150,11 +156,11 @@ app.route("/take-a-stand/episodes/:episodeNumber")
     );
   })
   // deletes the specified episode
-  .delete(function(req, res) {
+  .delete(function (req, res) {
     Episode.delete({
-        episodeNumber: req.params.episodeNumber
-      },
-      function(err) {
+      episodeNumber: req.params.episodeNumber
+    },
+      function (err) {
         if (!err) {
           countHowManyEpisodes();
           res.send("Successfully deleted episode.");
@@ -170,9 +176,9 @@ app.route("/take-a-stand/episodes/:episodeNumber")
 /**********************************************************************************************************************/
 app.route("/take-a-stand/characters")
   //GET all character bios in database
-  .get(function(req, res) {
-    Character.find({}, function(err, foundCharacters) {
-      if (!err){
+  .get(function (req, res) {
+    Character.find({}, function (err, foundCharacters) {
+      if (!err) {
         res.render("take-a-stand/character-list.ejs", {
           characterList: foundCharacters,
           pageSubtitle: "| Characters",
@@ -181,16 +187,16 @@ app.route("/take-a-stand/characters")
       } else {
         res.send(err);
       }
-    }).sort({name:1});
+    }).sort({ name: 1 });
   })
   // POST (create) a new character bio in database
-  .post(function(req, res) {
+  .post(function (req, res) {
     const creationName = _.startCase(_.capitalize(req.body.name));;
 
     Character.findOne({
-        name: creationName
-      },
-      function(err, foundCharacter) {
+      name: creationName
+    },
+      function (err, foundCharacter) {
         if (!foundCharacter) {
           const newCharacter = new Character({
             abilities: req.body.abilities,
@@ -205,7 +211,7 @@ app.route("/take-a-stand/characters")
             profile: req.body.profile
           });
 
-          newCharacter.save(function(err) {
+          newCharacter.save(function (err) {
             res.send(err ? err : "Character Bio Successfully Saved!");
           });
         } else {
@@ -220,11 +226,11 @@ app.route("/take-a-stand/characters")
 /*****************************************************************************************************************************/
 app.route("/take-a-stand/characters/:characterName")
   // Reads the specified character bio in the database
-  .get(function(req, res) {
+  .get(function (req, res) {
     const characterName = _.startCase(_.capitalize(req.params.characterName));
-    Character.findOne({name: characterName}, function(err, foundCharacter) {
+    Character.findOne({ name: characterName }, function (err, foundCharacter) {
       if (!err) {
-        if(foundCharacter) {
+        if (foundCharacter) {
           res.render("take-a-stand/character-bio-display.ejs", {
             characterDoc: foundCharacter,
             episodeAmount: episodeAmount,
@@ -238,28 +244,28 @@ app.route("/take-a-stand/characters/:characterName")
       }
     });
   })
-// updates (through 'patch' method) the specified character bio in the database
-.patch(function(req, res) {
+  // updates (through 'patch' method) the specified character bio in the database
+  .patch(function (req, res) {
     var updateBody = req.body;
     updateBody.name = _.startCase(_.capitalize(req.params.characterName));
 
     Character.updateOne({
-        name: updateBody.name
-      }, {
-        $set: updateBody
-      },
-      function(err) {
+      name: updateBody.name
+    }, {
+      $set: updateBody
+    },
+      function (err) {
         res.send(err ? err : "Successfully Updated Character Bio!");
       }
     );
   })
   // deletes the specified character bio
-  .delete(function(req, res) {
+  .delete(function (req, res) {
     const characterName = _.startCase(_.capitalize(req.params.characterName));
     Character.delete({
-        name: characterName
-      },
-      function(err) {
+      name: characterName
+    },
+      function (err) {
         res.send(err ? err : "Successfully Deleted Character Bio!")
       }
     );
@@ -274,65 +280,65 @@ app.route("/take-a-stand/characters/:characterName")
 /*************************************** Methods for all chapters in the database ***************************************/
 /************************************************************************************************************************/
 app.route("/stand-against/chapters")
-// GET all chapters in database
-.get(function(req, res) {
-  Chapter.find({}, function(err, foundChapters) {
-    if (!err) {
-      res.render("stand-against/chapter-list.ejs", {
-        chapterList: foundChapters,
-        pageSubtitle: "| Chapters",
-        chapterAmount: chapterAmount
-      });
-    } else {
-      res.send(err);
-    }
-  }).sort({chapterNumber:1})
-})
-// POST (create) a new chapter in database
-.post(function(req, res) {
-  Chapter.findOne({
+  // GET all chapters in database
+  .get(function (req, res) {
+    Chapter.find({}, function (err, foundChapters) {
+      if (!err) {
+        res.render("stand-against/chapter-list.ejs", {
+          chapterList: foundChapters,
+          pageSubtitle: "| Chapters",
+          chapterAmount: chapterAmount
+        });
+      } else {
+        res.send(err);
+      }
+    }).sort({ chapterNumber: 1 })
+  })
+  // POST (create) a new chapter in database
+  .post(function (req, res) {
+    Chapter.findOne({
       chapterNumber: req.body.chapterNumber
     },
-    function(err, foundChapter) {
-      if (!foundChapter && !err) {
-        const newChapter = new Chapter({
-          chapterNumber: req.body.chapterNumber,
-          realLifeDate: req.body.realLifeDate,
-          inGameDate: req.body.inGameDate,
-          players: req.body.players,
-          chapterQuestion: req.body.chapterQuestion,
-          chapterAnswers: req.body.chapterAnswers,
-          advancements: req.body.advancements,
-          chapterDescription: req.body.chapterDescription,
-          standOutMoments: req.body.standOutMoments,
-          storyArc: req.body.storyArc
-        });
+      function (err, foundChapter) {
+        if (!foundChapter && !err) {
+          const newChapter = new Chapter({
+            chapterNumber: req.body.chapterNumber,
+            realLifeDate: req.body.realLifeDate,
+            inGameDate: req.body.inGameDate,
+            players: req.body.players,
+            chapterQuestion: req.body.chapterQuestion,
+            chapterAnswers: req.body.chapterAnswers,
+            advancements: req.body.advancements,
+            chapterDescription: req.body.chapterDescription,
+            standOutMoments: req.body.standOutMoments,
+            storyArc: req.body.storyArc
+          });
 
-        newChapter.save(function(err) {
-          if (!err) {
-            countHowManyChapters();
-            res.send("Successfully added new chapter!");
-          } else {
-            res.send(err);
-          }
-        });
-      } else if (err) {
-        res.send(err);
-      } else {
-        res.send("Chapter Already Exists!");
-      }
-    })
-})
+          newChapter.save(function (err) {
+            if (!err) {
+              countHowManyChapters();
+              res.send("Successfully added new chapter!");
+            } else {
+              res.send(err);
+            }
+          });
+        } else if (err) {
+          res.send(err);
+        } else {
+          res.send("Chapter Already Exists!");
+        }
+      })
+  })
 
 /*******************************************************************************************************************************/
 /*************************************** Methods for individual chapters in the database ***************************************/
 /*******************************************************************************************************************************/
 app.route("/stand-against/chapters/:chapterNumber")
   // reads the specified chapter in the database
-  .get(function(req, res) {
+  .get(function (req, res) {
     Chapter.findOne({
       chapterNumber: req.params.chapterNumber
-    }, function(err, foundChapter) {
+    }, function (err, foundChapter) {
       if (!err) {
         if (foundChapter) {
           res.render("stand-against/chapter-display.ejs", {
@@ -349,13 +355,13 @@ app.route("/stand-against/chapters/:chapterNumber")
     })
   })
   // updates (through 'patch' method) the specified chapter in the database
-  .patch(function(req, res) {
+  .patch(function (req, res) {
     Chapter.updateOne({
-        chapterNumber: req.params.chapterNumber
-      }, {
-        $set: req.body
-      },
-      function(err) {
+      chapterNumber: req.params.chapterNumber
+    }, {
+      $set: req.body
+    },
+      function (err) {
         if (!err) {
           res.send("Successfully updated chapter.");
         } else {
@@ -365,11 +371,11 @@ app.route("/stand-against/chapters/:chapterNumber")
     );
   })
   // deletes the specified chapter
-  .delete(function(req, res) {
+  .delete(function (req, res) {
     Chapter.delete({
-        chapterNumber: req.params.chapterNumber
-      },
-      function(err) {
+      chapterNumber: req.params.chapterNumber
+    },
+      function (err) {
         if (!err) {
           countHowManyChapters();
           res.send("Successfully deleted chapter.");
@@ -380,14 +386,14 @@ app.route("/stand-against/chapters/:chapterNumber")
     )
   });
 
-  /************************************************************************************************************************/
-  /*************************************** Methods for all roles in the database ***************************************/
-  /************************************************************************************************************************/
-  app.route("/stand-against/characters")
+/************************************************************************************************************************/
+/*************************************** Methods for all roles in the database ***************************************/
+/************************************************************************************************************************/
+app.route("/stand-against/characters")
   //GET all character bios in database
-  .get(function(req, res) {
-    Role.find({}, function(err, foundRoles) {
-      if (!err){
+  .get(function (req, res) {
+    Role.find({}, function (err, foundRoles) {
+      if (!err) {
         res.render("stand-against/role-list.ejs", {
           roleList: foundRoles,
           pageSubtitle: "| Roles",
@@ -396,16 +402,16 @@ app.route("/stand-against/chapters/:chapterNumber")
       } else {
         res.send(err);
       }
-    }).sort({name:1});
+    }).sort({ name: 1 });
   })
   // POST (create) a new role in database
-  .post(function(req, res) {
+  .post(function (req, res) {
     const creationName = _.startCase(_.capitalize(req.body.name));;
 
     Role.findOne({
-        name: creationName
-      },
-      function(err, foundRole) {
+      name: creationName
+    },
+      function (err, foundRole) {
         if (!foundRole) {
           const newRole = new Role({
             abilities: req.body.abilities,
@@ -420,7 +426,7 @@ app.route("/stand-against/chapters/:chapterNumber")
             profile: req.body.profile
           });
 
-          newRole.save(function(err) {
+          newRole.save(function (err) {
             res.send(err ? err : "Role Successfully Saved!");
           });
         } else {
@@ -430,68 +436,68 @@ app.route("/stand-against/chapters/:chapterNumber")
     );
   });
 
-    /*****************************************************************************************************************************/
-    /*************************************** Methods for individual roles in database ***************************************/
-    /*****************************************************************************************************************************/
-    app.route("/stand-against/characters/:roleName")
-      // Reads the specified role bio in the database
-      .get(function(req, res) {
-        const roleName = _.startCase(_.capitalize(req.params.roleName));
-        Role.findOne({name: roleName}, function(err, foundRole) {
-          if (!err) {
-            if(foundRole) {
-              res.render("stand-against/role-detail-display.ejs", {
-                roleDoc: foundRole,
-                chapterAmount: chapterAmount,
-                pageSubtitle: "| " + req.params.roleName
-              });
-            } else {
-              res.send("Cannot find role");
-            }
-          } else {
-            res.send(err);
-          }
-        });
-      })
-    // updates (through 'patch' method) the specified role bio in the database
-    .patch(function(req, res) {
-        var updateBody = req.body;
-        updateBody.name = _.startCase(_.capitalize(req.params.roleName));
-
-        Role.updateOne({
-            name: updateBody.name
-          }, {
-            $set: updateBody
-          },
-          function(err) {
-            res.send(err ? err : "Successfully Updated Role!");
-          }
-        );
-      })
-      // deletes the specified role bio
-      .delete(function(req, res) {
-        const roleName = _.startCase(_.capitalize(req.params.roleName));
-        Role.delete({
-            name: roleName
-          },
-          function(err) {
-            res.send(err ? err : "Successfully Deleted Role!")
-          }
-        );
-      });
-
-  function countHowManyEpisodes() {
-    Episode.countDocuments({}, function(err, count) {
-      episodeAmount = count;
+/*****************************************************************************************************************************/
+/*************************************** Methods for individual roles in database ***************************************/
+/*****************************************************************************************************************************/
+app.route("/stand-against/characters/:roleName")
+  // Reads the specified role bio in the database
+  .get(function (req, res) {
+    const roleName = _.startCase(_.capitalize(req.params.roleName));
+    Role.findOne({ name: roleName }, function (err, foundRole) {
+      if (!err) {
+        if (foundRole) {
+          res.render("stand-against/role-detail-display.ejs", {
+            roleDoc: foundRole,
+            chapterAmount: chapterAmount,
+            pageSubtitle: "| " + req.params.roleName
+          });
+        } else {
+          res.send("Cannot find role");
+        }
+      } else {
+        res.send(err);
+      }
     });
-  }
+  })
+  // updates (through 'patch' method) the specified role bio in the database
+  .patch(function (req, res) {
+    var updateBody = req.body;
+    updateBody.name = _.startCase(_.capitalize(req.params.roleName));
 
-  function countHowManyChapters() {
-    Chapter.countDocuments({}, function(err, count) {
-      chapterAmount = count;
-    })
-  }
+    Role.updateOne({
+      name: updateBody.name
+    }, {
+      $set: updateBody
+    },
+      function (err) {
+        res.send(err ? err : "Successfully Updated Role!");
+      }
+    );
+  })
+  // deletes the specified role bio
+  .delete(function (req, res) {
+    const roleName = _.startCase(_.capitalize(req.params.roleName));
+    Role.delete({
+      name: roleName
+    },
+      function (err) {
+        res.send(err ? err : "Successfully Deleted Role!")
+      }
+    );
+  });
 
-app.listen(process.env.PORT || 3000, function() {
+function countHowManyEpisodes() {
+  Episode.countDocuments({}, function (err, count) {
+    episodeAmount = count;
+  });
+}
+
+function countHowManyChapters() {
+  Chapter.countDocuments({}, function (err, count) {
+    chapterAmount = count;
+  })
+}
+
+app.listen(process.env.PORT || 3000, function () {
   console.log("Bizzare Adventure server has started");
 });
