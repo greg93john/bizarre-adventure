@@ -29,7 +29,7 @@
         <div class="offset-1 offset-lg-0 col-10 col-lg-4 mb-3">
           <div class="card h-100 border border-dark">
             <%if(chapter.chapterThumbnailId) {%>
-            <a href="./chapters/<%=chapter.chapterNumber%>"><img class="card-img-top" src="https://drive.google.com/uc?export=view&id=<%=chapter.chapterThumbnailId%>" alt="chapter thumbnail"></a>
+            <a href="./chapters/<%=chapter.chapterNumber%>"><img class="card-img-top" src="/images/<%=chapter.storyArc%>.png" alt="chapter thumbnail"></a>
             <%}%>
             <div class="card-body">
               <a class="card-title" href="./chapters/<%=chapter.chapterNumber%>"><h5>Chapter: <%= chapter.chapterNumber %></h5></a>
